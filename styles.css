@@ -1,0 +1,98 @@
+body{
+	margin: 0;
+	background-color: #E0E0E0;
+}
+
+.wrapper{
+	text-align: center;
+}
+
+
+.start{
+	margin: 10px;
+}
+
+.start_labbel-for-input{
+	    display: block;
+    	margin-bottom: 9px;
+}
+
+
+.start__input{
+	width: 102px;
+}
+
+.control{
+	border: 1px solid silver;
+    display: inline-block;
+}
+
+.control__input-and-info{
+	display: inline-block;
+    padding: 10px;
+}
+
+.controle__note{
+	font-size: 0.7em;
+    font-style: italic;
+}
+
+.control__buttons{
+	display: inline-block;
+    padding: 10px;
+}
+
+.control__button{
+	display: block;
+	margin: 3px;
+}
+
+.display{
+	display: inline-block;
+    margin: 20px;
+    border: 1px solid silver;
+    padding: 4px;
+}
+
+.display__table tr th{
+	border: 1px solid black;
+	width: 30px;
+	cursor: pointer;
+}
+
+.result{
+	display: inline-block;
+    border: 1px solid silver;
+    padding: 19px;
+}
+
+.result__table{
+	display: block;
+    width: 300px;
+    height: 100px;
+    min-width: 300px;
+    max-width: 300px;
+    max-height: 100px;
+    min-height: 100px;
+}
+
+.result__refresh{
+	margin: 10px;
+}
+
+.hide{
+	display: none;
+}
+
+.show{
+	display: inline-block;
+}
+
+
+.cell{
+	background-color: green;
+}
+
+.busy{
+	background-color: red;
+}

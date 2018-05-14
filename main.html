@@ -1,0 +1,61 @@
+
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Unusing Contact Web</title>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+	</head>
+
+	<body>
+		<div class = wrapper>
+
+			<div class = 'start'>
+				<h2 class = 'start__titel'>Таблица неиспользованных контактов</h2>
+				<label class = 'start_labbel-for-input' >Введите размер соединителя</label>
+				<input type = 'text' class = 'start__input' name = 'contact-counter'>
+				<button class = 'start__button'>Применить</button>
+			</div>
+
+
+			<div class = 'control hide'>
+
+				<div class = 'control__input-and-info'>
+					<input type="text" name="contact-number" class = 'control__input'
+					placeholder="Введите номер контакта">
+					<h4 class = 'controle__note'>*Поддерживается ввод через запятую</h4>
+				</div>
+
+				<div class = 'control__buttons'>
+					<button class = 'control__button accept'>Применить</button>
+					<button class = 'control__button finish'>Завершить</button>
+				</div>
+
+			</div>
+
+
+			<div class = 'display hide' >
+
+				<table class = 'display__table'>
+				</table>
+			</div>
+
+			<hr>
+			<div class = 'result hide'>
+				<textarea class = 'result__table'></textarea>
+				<button class = 'result__refresh'>Сбросить</button>
+			</div>
+
+
+
+		</div>		
+
+		
+		<script type="text/javascript" src = 'script.js'></script>
+	</body>
+
+
+
+
+</html>
