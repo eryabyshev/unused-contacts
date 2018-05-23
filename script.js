@@ -16,13 +16,14 @@
 		cells = [],
 		resultBlock = doc.querySelector('.result'),
 		finish = doc.querySelector('.finish'),
-		result__table = doc.querySelector('.result__table');
+		result__table = doc.querySelector('.result__table'),
+		result__refresh = doc.querySelector('.result__refresh');
 
 
 
 
-	
-	start__button.addEventListener('click', function(){
+
+	function connectorInput(){
 		start_labbel_for_input.style.color = 'black';
 
 		if(!start__input.value || !(start__input.value / 1) || start__input.value < 0){
@@ -51,7 +52,10 @@
 		start__button.disabled = 1;
 
 
-	});
+	}
+
+	
+	start__button.addEventListener('click', connectorInput);
 
 
 
@@ -65,20 +69,38 @@
 	}
 
 
-	function arrayFromInput(input){
-		var array = input.split(',');
-		for(var i = 0; i < array.length; i++){
-			if(!Number(array[i])){
-				return false;
-			}
+	function intervalArray(start, finish) {
+		
+		var array = [];
+		for (;start <= finish; start++){
+			array.push(start);
 		}
 		return array;
 	}
 
 
+	function arrayFromInput(input){
+
+		var array = [];
+		if(input.substring('...') && input.split('...').length == 2){
+			array = intervalArray(input.split('...')[0], input.split('...')[1]);
+			
+		}
+		else{
+			array = input.split(' ');
+			for(var i = 0; i < array.length; i++){
+				if(!Number(array[i])){
+					return false;
+				}
+			}
+		}
+		
+		return array;
+	}
 
 
-	accept.addEventListener('click', function(){
+
+	function addContact (){
 
 		control.style.borderColor = 'silver';
 		
@@ -92,10 +114,10 @@
 			useContact(input[i]);
 		}
 		control__input.value = '';
+	}
 
 
-
-	});
+	accept.addEventListener('click', addContact);
 
 
 
@@ -109,12 +131,12 @@
 
 	function useContact(contact){
 
-		if(itBusy(contact)){
-			alert("Контакт №" + contact + " уже использован!");
+		if(Number(contact) > Number(contacts) || Number(contact) <= 0){
+			alert("Ошибка ввода! В соединителе нет контакта №" + contact +" !!!");
 			return;
 		}
-		else if(contact > contacts && contacts <= 0){
-			alert("Ошибка ввода! В соединителе нет контакта №" + contact +" !!!");
+		else if(itBusy(contact)){
+			alert("Контакт №" + contact + " уже использован!");
 			return;
 		}
 		contactsArray[contact - 1] = 0;
@@ -137,23 +159,38 @@
 	}
 
 
+
+	function pressCell(event){
+		var target = event.target;
+		if(target.getAttribute('class') === 'cell'){
+			useContact(target.innerHTML);
+		}
+		else if(target.getAttribute('class') === 'busy'){
+			contactsArray[target.innerHTML - 1] = Number(target.innerHTML);
+			target.setAttribute('class', 'cell');
+		}
+	}
+
+
+
 	function addEventListenerForCells(){
 
 		var cells = document.querySelectorAll('.cell');
 
 		for(var i = 0; i < cells.length; i++){
-			cells[i].addEventListener('click',function(event){
-				var target = event.target;
-				if(target.getAttribute('class') === 'cell'){
-					useContact(target.innerHTML);
-				}
-				else if(target.getAttribute('class') === 'busy'){
-					contactsArray[target.innerHTML - 1] = Number(target.innerHTML);
-					target.setAttribute('class', 'cell');
-				}
-			});
+			cells[i].addEventListener('click', pressCell);
 		}
 	}
+
+
+	function removeEventListenerForCells(){
+		var cells = document.querySelectorAll('.cell');
+
+		for(var i = 0; i < cells.length; i++){
+			cells[i].removeEventListener('click', pressCell);
+		}
+	}
+
 
 
 
@@ -192,6 +229,26 @@
 		}
 
 		result__table.value = result;
+		removeEventListenerForCells();
+		control.setAttribute('class', 'hide');
+	})
+
+
+	result__refresh.addEventListener('click', function(){
+		window.location.reload();
+	})
+
+
+
+	document.addEventListener('keydown', function(event){
+		if(event.code === 'Enter' && document.activeElement.getAttribute('class') === 'start__input'){
+			connectorInput();
+		}
+		else if((event.code === 'Enter' 
+			|| event.code === 'NumpadEnter')
+			&& document.activeElement.getAttribute('class') === 'control__input'){
+			addContact();
+		}
 
 	})
 
